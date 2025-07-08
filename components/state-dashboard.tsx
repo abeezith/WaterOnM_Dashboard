@@ -16,7 +16,7 @@ import {
   Pie,
   Cell,
 } from "recharts"
-import { CheckCircle, Clock, Droplets, IndianRupee } from "lucide-react"
+import { CheckCircle, Clock, Droplets, IndianRupee, AlertTriangle } from "lucide-react"
 
 const stateMetrics = {
   totalDistricts: 24,
@@ -24,20 +24,76 @@ const stateMetrics = {
   totalGPs: 4562,
   totalVillages: 32620,
   populationServed: 28500000,
-  tapConnections: 85.2,
-  waterSupplyRegularity: 78.5,
+  tapConnections: 42.8, // Reduced to below 50%
+  waterSupplyRegularity: 38.5, // Households receiving 55 LPCD regularly
   grievanceResolution: 72.3,
-  omExpenditure: 285, // Changed from 2850000000 to 285 (Crores)
+  avgGrievanceTurnaround: 6.2, // days
+  omExpenditure: 285, // Crores
   userChargeCollection: 68.4,
+  userChargeRate: 1, // Re 1 per person per month
+  fcFundsMobilized: 185, // Crores from 15th FC
+  waterInterruptionDays: 45, // average days per year
+  resumptionTime: 3.8, // average days to resume
+  vwscMeetings: 78.5, // percentage compliance
+  logbookUpdation: 65.2, // percentage regular updates
+  ftkTesting: 58.3, // percentage with community involvement
+  trainedPersonnel: 67.8, // percentage availability at GP level
+  electricityBillPayment: 82.4, // percentage timely payment
+  tankCleaning: 71.6, // percentage regular cleaning
+  preventiveMaintenance: 69.3, // percentage following checklist
+  recordMaintenance: 74.8, // percentage proper record keeping
+  userSatisfaction: 3.2, // out of 5
 }
 
 const districtPerformance = [
-  { name: "Ranchi", tapConnections: 92, waterRegularity: 85, grievanceResolution: 78, omExpenditure: 28.5 },
-  { name: "Dhanbad", tapConnections: 88, waterRegularity: 82, grievanceResolution: 75, omExpenditure: 24.5 },
-  { name: "East Singhbhum", tapConnections: 90, waterRegularity: 80, grievanceResolution: 80, omExpenditure: 32.0 },
-  { name: "Bokaro", tapConnections: 85, waterRegularity: 78, grievanceResolution: 70, omExpenditure: 19.5 },
-  { name: "Hazaribagh", tapConnections: 82, waterRegularity: 75, grievanceResolution: 68, omExpenditure: 16.5 },
-  { name: "Deoghar", tapConnections: 80, waterRegularity: 72, grievanceResolution: 65, omExpenditure: 14.5 },
+  {
+    name: "Ranchi",
+    tapConnections: 48,
+    waterRegularity: 42,
+    grievanceResolution: 78,
+    omExpenditure: 28.5,
+    userChargeCollection: 72,
+  },
+  {
+    name: "Dhanbad",
+    tapConnections: 45,
+    waterRegularity: 38,
+    grievanceResolution: 75,
+    omExpenditure: 24.5,
+    userChargeCollection: 68,
+  },
+  {
+    name: "East Singhbhum",
+    tapConnections: 52,
+    waterRegularity: 45,
+    grievanceResolution: 80,
+    omExpenditure: 32.0,
+    userChargeCollection: 75,
+  },
+  {
+    name: "Bokaro",
+    tapConnections: 41,
+    waterRegularity: 35,
+    grievanceResolution: 70,
+    omExpenditure: 19.5,
+    userChargeCollection: 65,
+  },
+  {
+    name: "Hazaribagh",
+    tapConnections: 38,
+    waterRegularity: 32,
+    grievanceResolution: 68,
+    omExpenditure: 16.5,
+    userChargeCollection: 62,
+  },
+  {
+    name: "Deoghar",
+    tapConnections: 35,
+    waterRegularity: 28,
+    grievanceResolution: 65,
+    omExpenditure: 14.5,
+    userChargeCollection: 58,
+  },
 ]
 
 const monthlyTrends = [
@@ -118,6 +174,61 @@ export function StateDashboard() {
             <div className="text-2xl font-bold">₹{stateMetrics.omExpenditure}Cr</div>
             <Progress value={75} className="mt-2" />
             <p className="text-xs text-muted-foreground mt-2">75% of allocated budget utilized</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Avg Grievance Turnaround</CardTitle>
+            <Clock className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{stateMetrics.avgGrievanceTurnaround} days</div>
+            <Progress value={100 - (stateMetrics.avgGrievanceTurnaround / 10) * 100} className="mt-2" />
+            <p className="text-xs text-muted-foreground mt-2">Target: ≤5 days</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">15th FC Funds Mobilized</CardTitle>
+            <IndianRupee className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">₹{stateMetrics.fcFundsMobilized}Cr</div>
+            <Progress value={68} className="mt-2" />
+            <p className="text-xs text-muted-foreground mt-2">68% of ₹272Cr allocated</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Water Interruption Days</CardTitle>
+            <AlertTriangle className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{stateMetrics.waterInterruptionDays}</div>
+            <Progress value={100 - (stateMetrics.waterInterruptionDays / 365) * 100} className="mt-2" />
+            <p className="text-xs text-muted-foreground mt-2">Avg per year across state</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">User Charge Collection</CardTitle>
+            <IndianRupee className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{stateMetrics.userChargeCollection}%</div>
+            <Progress value={stateMetrics.userChargeCollection} className="mt-2" />
+            <p className="text-xs text-muted-foreground mt-2">
+              ₹
+              {(
+                (stateMetrics.populationServed * stateMetrics.userChargeRate * 12 * stateMetrics.userChargeCollection) /
+                10000000
+              ).toFixed(1)}
+              Cr annually
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -232,30 +343,65 @@ export function StateDashboard() {
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">VWSC Meetings Conducted</span>
-                    <span className="text-sm font-medium">78%</span>
+                    <span className="text-sm font-medium">{stateMetrics.vwscMeetings}%</span>
                   </div>
-                  <Progress value={78} />
+                  <Progress value={stateMetrics.vwscMeetings} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-sm">FTK Testing Compliance</span>
-                    <span className="text-sm font-medium">65%</span>
+                    <span className="text-sm">FTK Testing (Community Involvement)</span>
+                    <span className="text-sm font-medium">{stateMetrics.ftkTesting}%</span>
                   </div>
-                  <Progress value={65} />
+                  <Progress value={stateMetrics.ftkTesting} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-sm">Trained Personnel Availability</span>
-                    <span className="text-sm font-medium">82%</span>
+                    <span className="text-sm">Trained Personnel at GP Level</span>
+                    <span className="text-sm font-medium">{stateMetrics.trainedPersonnel}%</span>
                   </div>
-                  <Progress value={82} />
+                  <Progress value={stateMetrics.trainedPersonnel} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-sm">Electricity Bill Payment</span>
-                    <span className="text-sm font-medium">89%</span>
+                    <span className="text-sm">Timely Electricity Bill Payment</span>
+                    <span className="text-sm font-medium">{stateMetrics.electricityBillPayment}%</span>
                   </div>
-                  <Progress value={89} />
+                  <Progress value={stateMetrics.electricityBillPayment} />
+                </div>
+                <div className="space-y-2">
+                  <div className="flex justify-between">
+                    <span className="text-sm">Tank Cleaning Compliance</span>
+                    <span className="text-sm font-medium">{stateMetrics.tankCleaning}%</span>
+                  </div>
+                  <Progress value={stateMetrics.tankCleaning} />
+                </div>
+                <div className="space-y-2">
+                  <div className="flex justify-between">
+                    <span className="text-sm">Preventive Maintenance Checklist</span>
+                    <span className="text-sm font-medium">{stateMetrics.preventiveMaintenance}%</span>
+                  </div>
+                  <Progress value={stateMetrics.preventiveMaintenance} />
+                </div>
+                <div className="space-y-2">
+                  <div className="flex justify-between">
+                    <span className="text-sm">Log Book Updation Frequency</span>
+                    <span className="text-sm font-medium">{stateMetrics.logbookUpdation}%</span>
+                  </div>
+                  <Progress value={stateMetrics.logbookUpdation} />
+                </div>
+                <div className="space-y-2">
+                  <div className="flex justify-between">
+                    <span className="text-sm">O&M Record Maintenance</span>
+                    <span className="text-sm font-medium">{stateMetrics.recordMaintenance}%</span>
+                  </div>
+                  <Progress value={stateMetrics.recordMaintenance} />
+                </div>
+                <div className="space-y-2">
+                  <div className="flex justify-between">
+                    <span className="text-sm">User Satisfaction Score</span>
+                    <span className="text-sm font-medium">{stateMetrics.userSatisfaction}/5</span>
+                  </div>
+                  <Progress value={(stateMetrics.userSatisfaction / 5) * 100} />
                 </div>
               </CardContent>
             </Card>

@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from "recharts"
-import { CheckCircle, Clock, Droplets, IndianRupee } from "lucide-react"
+import { CheckCircle, Clock, Droplets, IndianRupee, AlertTriangle } from "lucide-react"
 
 interface DistrictDashboardProps {
   district: string
@@ -17,28 +17,48 @@ const getDistrictData = (district: string) => {
       gps: 385,
       villages: 2456,
       population: 2914253,
-      tapConnections: 92,
-      waterRegularity: 85,
+      tapConnections: 48, // Reduced to below 50%
+      waterRegularity: 42, // 55 LPCD regular supply
       grievanceResolution: 78,
-      omExpenditure: 28.5, // Changed to Crores
-      userChargeCollection: 75,
+      avgTurnaround: 5.8,
+      omExpenditure: 28.5,
+      userChargeCollection: 72,
+      userChargeRate: 1,
       vwscMeetings: 82,
       ftkTesting: 68,
-      trainedPersonnel: 85,
+      trainedPersonnel: 75,
+      electricityPayment: 85,
+      tankCleaning: 78,
+      preventiveMaintenance: 72,
+      logbookUpdation: 69,
+      recordMaintenance: 76,
+      waterInterruptions: 38,
+      resumptionTime: 3.2,
+      fcFunds: 18.5,
     },
     Dhanbad: {
       blocks: 8,
       gps: 198,
       villages: 1456,
       population: 2684487,
-      tapConnections: 88,
-      waterRegularity: 82,
+      tapConnections: 45,
+      waterRegularity: 38,
       grievanceResolution: 75,
-      omExpenditure: 24.5, // Changed to Crores
-      userChargeCollection: 72,
+      avgTurnaround: 6.1,
+      omExpenditure: 24.5,
+      userChargeCollection: 68,
+      userChargeRate: 1,
       vwscMeetings: 78,
       ftkTesting: 65,
-      trainedPersonnel: 80,
+      trainedPersonnel: 72,
+      electricityPayment: 82,
+      tankCleaning: 75,
+      preventiveMaintenance: 68,
+      logbookUpdation: 65,
+      recordMaintenance: 73,
+      waterInterruptions: 42,
+      resumptionTime: 3.8,
+      fcFunds: 16.2,
     },
   }
 
@@ -137,6 +157,54 @@ export function DistrictDashboard({ district }: DistrictDashboardProps) {
             <p className="text-xs text-muted-foreground mt-2">
               ₹{(districtData.omExpenditure * 0.15).toFixed(1)}Cr collected
             </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Avg Turnaround Time</CardTitle>
+            <Clock className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{districtData.avgTurnaround} days</div>
+            <Progress value={100 - (districtData.avgTurnaround / 10) * 100} className="mt-2" />
+            <p className="text-xs text-muted-foreground mt-2">Target: ≤5 days</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Water Interruptions</CardTitle>
+            <AlertTriangle className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{districtData.waterInterruptions}</div>
+            <Progress value={100 - (districtData.waterInterruptions / 100) * 100} className="mt-2" />
+            <p className="text-xs text-muted-foreground mt-2">Days interrupted annually</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">15th FC Funds</CardTitle>
+            <IndianRupee className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">₹{districtData.fcFunds}Cr</div>
+            <Progress value={68} className="mt-2" />
+            <p className="text-xs text-muted-foreground mt-2">Mobilized for O&M</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Resumption Time</CardTitle>
+            <Clock className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{districtData.resumptionTime} days</div>
+            <Progress value={100 - (districtData.resumptionTime / 7) * 100} className="mt-2" />
+            <p className="text-xs text-muted-foreground mt-2">Avg time to resume supply</p>
           </CardContent>
         </Card>
       </div>
@@ -297,7 +365,7 @@ export function DistrictDashboard({ district }: DistrictDashboardProps) {
             <Card>
               <CardHeader>
                 <CardTitle>FTK Testing</CardTitle>
-                <CardDescription>Field Test Kit usage</CardDescription>
+                <CardDescription>Field Test Kit with community</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{districtData.ftkTesting}%</div>
@@ -320,13 +388,61 @@ export function DistrictDashboard({ district }: DistrictDashboardProps) {
 
             <Card>
               <CardHeader>
-                <CardTitle>Log Book Updates</CardTitle>
-                <CardDescription>Record maintenance frequency</CardDescription>
+                <CardTitle>Electricity Payment</CardTitle>
+                <CardDescription>Timely bill payments</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">72%</div>
-                <Progress value={72} className="mt-2" />
-                <p className="text-xs text-muted-foreground mt-2">Regular updates maintained</p>
+                <div className="text-2xl font-bold">{districtData.electricityPayment}%</div>
+                <Progress value={districtData.electricityPayment} className="mt-2" />
+                <p className="text-xs text-muted-foreground mt-2">Bills paid on time</p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Tank Cleaning</CardTitle>
+                <CardDescription>Water storage maintenance</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{districtData.tankCleaning}%</div>
+                <Progress value={districtData.tankCleaning} className="mt-2" />
+                <p className="text-xs text-muted-foreground mt-2">Regular cleaning schedule</p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Preventive Maintenance</CardTitle>
+                <CardDescription>Checklist compliance</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{districtData.preventiveMaintenance}%</div>
+                <Progress value={districtData.preventiveMaintenance} className="mt-2" />
+                <p className="text-xs text-muted-foreground mt-2">Following checklist</p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Log Book Updates</CardTitle>
+                <CardDescription>Record updation frequency</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{districtData.logbookUpdation}%</div>
+                <Progress value={districtData.logbookUpdation} className="mt-2" />
+                <p className="text-xs text-muted-foreground mt-2">Regular updates</p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Record Maintenance</CardTitle>
+                <CardDescription>O&M records at GP/VWSC</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{districtData.recordMaintenance}%</div>
+                <Progress value={districtData.recordMaintenance} className="mt-2" />
+                <p className="text-xs text-muted-foreground mt-2">Proper documentation</p>
               </CardContent>
             </Card>
           </div>
