@@ -27,32 +27,26 @@ const stateMetrics = {
   tapConnections: 85.2,
   waterSupplyRegularity: 78.5,
   grievanceResolution: 72.3,
-  omExpenditure: 2850000000,
+  omExpenditure: 285, // Changed from 2850000000 to 285 (Crores)
   userChargeCollection: 68.4,
 }
 
 const districtPerformance = [
-  { name: "Ranchi", tapConnections: 92, waterRegularity: 85, grievanceResolution: 78, omExpenditure: 285000000 },
-  { name: "Dhanbad", tapConnections: 88, waterRegularity: 82, grievanceResolution: 75, omExpenditure: 245000000 },
-  {
-    name: "East Singhbhum",
-    tapConnections: 90,
-    waterRegularity: 80,
-    grievanceResolution: 80,
-    omExpenditure: 320000000,
-  },
-  { name: "Bokaro", tapConnections: 85, waterRegularity: 78, grievanceResolution: 70, omExpenditure: 195000000 },
-  { name: "Hazaribagh", tapConnections: 82, waterRegularity: 75, grievanceResolution: 68, omExpenditure: 165000000 },
-  { name: "Deoghar", tapConnections: 80, waterRegularity: 72, grievanceResolution: 65, omExpenditure: 145000000 },
+  { name: "Ranchi", tapConnections: 92, waterRegularity: 85, grievanceResolution: 78, omExpenditure: 28.5 },
+  { name: "Dhanbad", tapConnections: 88, waterRegularity: 82, grievanceResolution: 75, omExpenditure: 24.5 },
+  { name: "East Singhbhum", tapConnections: 90, waterRegularity: 80, grievanceResolution: 80, omExpenditure: 32.0 },
+  { name: "Bokaro", tapConnections: 85, waterRegularity: 78, grievanceResolution: 70, omExpenditure: 19.5 },
+  { name: "Hazaribagh", tapConnections: 82, waterRegularity: 75, grievanceResolution: 68, omExpenditure: 16.5 },
+  { name: "Deoghar", tapConnections: 80, waterRegularity: 72, grievanceResolution: 65, omExpenditure: 14.5 },
 ]
 
 const monthlyTrends = [
-  { month: "Jan", grievances: 1250, resolved: 890, waterInterruptions: 45, expenditure: 235000000 },
-  { month: "Feb", grievances: 1180, resolved: 920, waterInterruptions: 38, expenditure: 242000000 },
-  { month: "Mar", grievances: 1320, resolved: 980, waterInterruptions: 52, expenditure: 258000000 },
-  { month: "Apr", grievances: 1450, resolved: 1050, waterInterruptions: 48, expenditure: 275000000 },
-  { month: "May", grievances: 1680, resolved: 1180, waterInterruptions: 65, expenditure: 290000000 },
-  { month: "Jun", grievances: 1520, resolved: 1100, waterInterruptions: 58, expenditure: 285000000 },
+  { month: "Jan", grievances: 1250, resolved: 890, waterInterruptions: 45, expenditure: 23.5 },
+  { month: "Feb", grievances: 1180, resolved: 920, waterInterruptions: 38, expenditure: 24.2 },
+  { month: "Mar", grievances: 1320, resolved: 980, waterInterruptions: 52, expenditure: 25.8 },
+  { month: "Apr", grievances: 1450, resolved: 1050, waterInterruptions: 48, expenditure: 27.5 },
+  { month: "May", grievances: 1680, resolved: 1180, waterInterruptions: 65, expenditure: 29.0 },
+  { month: "Jun", grievances: 1520, resolved: 1100, waterInterruptions: 58, expenditure: 28.5 },
 ]
 
 const serviceDistribution = [
@@ -121,7 +115,7 @@ export function StateDashboard() {
             <IndianRupee className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">₹{(stateMetrics.omExpenditure / 1000000000).toFixed(1)}B</div>
+            <div className="text-2xl font-bold">₹{stateMetrics.omExpenditure}Cr</div>
             <Progress value={75} className="mt-2" />
             <p className="text-xs text-muted-foreground mt-2">75% of allocated budget utilized</p>
           </CardContent>
@@ -276,9 +270,9 @@ export function StateDashboard() {
                 <CardDescription>Finance Commission allocation utilization</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">₹1.85B</div>
+                <div className="text-2xl font-bold">₹185Cr</div>
                 <Progress value={68} className="mt-2" />
-                <p className="text-xs text-muted-foreground mt-2">68% utilized of ₹2.72B allocated</p>
+                <p className="text-xs text-muted-foreground mt-2">68% utilized of ₹272Cr allocated</p>
               </CardContent>
             </Card>
 
@@ -290,7 +284,7 @@ export function StateDashboard() {
               <CardContent>
                 <div className="text-2xl font-bold">{stateMetrics.userChargeCollection}%</div>
                 <Progress value={stateMetrics.userChargeCollection} className="mt-2" />
-                <p className="text-xs text-muted-foreground mt-2">₹485M collected this year</p>
+                <p className="text-xs text-muted-foreground mt-2">₹48.5Cr collected this year</p>
               </CardContent>
             </Card>
 
@@ -300,7 +294,7 @@ export function StateDashboard() {
                 <CardDescription>Repair and maintenance costs</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">₹2.85B</div>
+                <div className="text-2xl font-bold">₹{stateMetrics.omExpenditure}Cr</div>
                 <Progress value={75} className="mt-2" />
                 <p className="text-xs text-muted-foreground mt-2">75% of annual budget spent</p>
               </CardContent>
@@ -318,7 +312,7 @@ export function StateDashboard() {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="month" />
                   <YAxis />
-                  <Tooltip formatter={(value) => [`₹${(Number(value) / 1000000).toFixed(1)}M`, "Expenditure"]} />
+                  <Tooltip formatter={(value) => [`₹${Number(value)}Cr`, "Expenditure"]} />
                   <Line type="monotone" dataKey="expenditure" stroke="#3b82f6" name="Monthly Expenditure" />
                 </LineChart>
               </ResponsiveContainer>

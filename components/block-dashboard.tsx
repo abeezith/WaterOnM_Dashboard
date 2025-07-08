@@ -50,6 +50,15 @@ const recentGrievances = [
   { id: "GRV005", village: "Lapung", issue: "Pipe Leakage", status: "Resolved", days: 4, assignedTo: "Suresh Yadav" },
 ]
 
+const monthlyData = [
+  { month: "Jan", interruptions: 12, resumptionDays: 2.3, expenditure: 23.5 },
+  { month: "Feb", interruptions: 8, resumptionDays: 1.8, expenditure: 24.2 },
+  { month: "Mar", interruptions: 15, resumptionDays: 2.8, expenditure: 25.8 },
+  { month: "Apr", interruptions: 11, resumptionDays: 2.1, expenditure: 27.5 },
+  { month: "May", interruptions: 18, resumptionDays: 3.2, expenditure: 29.0 },
+  { month: "Jun", interruptions: 14, resumptionDays: 2.5, expenditure: 28.5 },
+]
+
 export function BlockDashboard({ district, block }: BlockDashboardProps) {
   return (
     <div className="space-y-6">
@@ -365,6 +374,24 @@ export function BlockDashboard({ district, block }: BlockDashboardProps) {
               </CardContent>
             </Card>
           </div>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Monthly Expenditure</CardTitle>
+              <CardDescription>Expenditure on maintenance activities</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={400}>
+                <BarChart data={monthlyData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="month" />
+                  <YAxis />
+                  <Tooltip formatter={(value) => [`₹${Number(value)}L`, "Expenditure"]} />
+                  <Bar dataKey="expenditure" fill="#facc15" name="Expenditure (Lakhs)" />
+                </BarChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
         </TabsContent>
 
         <TabsContent value="personnel" className="space-y-4">

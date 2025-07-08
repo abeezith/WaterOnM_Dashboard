@@ -109,7 +109,7 @@ export function VillageDashboard({ district, block, village }: VillageDashboardP
           <CardContent>
             <div className="text-2xl font-bold">86%</div>
             <Progress value={86} className="mt-2" />
-            <p className="text-xs text-muted-foreground mt-2">₹12,450 collected this month</p>
+            <p className="text-xs text-muted-foreground mt-2">₹1.24L collected this month</p>
           </CardContent>
         </Card>
       </div>
@@ -199,21 +199,21 @@ export function VillageDashboard({ district, block, village }: VillageDashboardP
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Monthly Revenue</span>
-                    <span className="text-sm font-medium">₹12,450</span>
+                    <span className="text-sm font-medium">₹1.24L</span>
                   </div>
                   <Progress value={86} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">O&M Expenditure</span>
-                    <span className="text-sm font-medium">₹8,750</span>
+                    <span className="text-sm font-medium">₹0.88L</span>
                   </div>
                   <Progress value={70} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Net Balance</span>
-                    <span className="text-sm font-medium text-green-600">₹3,700</span>
+                    <span className="text-sm font-medium text-green-600">₹0.37L</span>
                   </div>
                 </div>
               </CardContent>

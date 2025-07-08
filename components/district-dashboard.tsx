@@ -20,7 +20,7 @@ const getDistrictData = (district: string) => {
       tapConnections: 92,
       waterRegularity: 85,
       grievanceResolution: 78,
-      omExpenditure: 285000000,
+      omExpenditure: 28.5, // Changed to Crores
       userChargeCollection: 75,
       vwscMeetings: 82,
       ftkTesting: 68,
@@ -34,7 +34,7 @@ const getDistrictData = (district: string) => {
       tapConnections: 88,
       waterRegularity: 82,
       grievanceResolution: 75,
-      omExpenditure: 245000000,
+      omExpenditure: 24.5, // Changed to Crores
       userChargeCollection: 72,
       vwscMeetings: 78,
       ftkTesting: 65,
@@ -63,12 +63,12 @@ const grievanceData = [
 ]
 
 const monthlyData = [
-  { month: "Jan", interruptions: 12, resumptionDays: 2.3, expenditure: 23500000 },
-  { month: "Feb", interruptions: 8, resumptionDays: 1.8, expenditure: 24200000 },
-  { month: "Mar", interruptions: 15, resumptionDays: 2.8, expenditure: 25800000 },
-  { month: "Apr", interruptions: 11, resumptionDays: 2.1, expenditure: 27500000 },
-  { month: "May", interruptions: 18, resumptionDays: 3.2, expenditure: 29000000 },
-  { month: "Jun", interruptions: 14, resumptionDays: 2.5, expenditure: 28500000 },
+  { month: "Jan", interruptions: 12, resumptionDays: 2.3, expenditure: 2.35 },
+  { month: "Feb", interruptions: 8, resumptionDays: 1.8, expenditure: 2.42 },
+  { month: "Mar", interruptions: 15, resumptionDays: 2.8, expenditure: 2.58 },
+  { month: "Apr", interruptions: 11, resumptionDays: 2.1, expenditure: 2.75 },
+  { month: "May", interruptions: 18, resumptionDays: 3.2, expenditure: 2.9 },
+  { month: "Jun", interruptions: 14, resumptionDays: 2.5, expenditure: 2.85 },
 ]
 
 export function DistrictDashboard({ district }: DistrictDashboardProps) {
@@ -135,7 +135,7 @@ export function DistrictDashboard({ district }: DistrictDashboardProps) {
             <div className="text-2xl font-bold">{districtData.userChargeCollection}%</div>
             <Progress value={districtData.userChargeCollection} className="mt-2" />
             <p className="text-xs text-muted-foreground mt-2">
-              ₹{((districtData.omExpenditure * 0.15) / 1000000).toFixed(1)}M collected
+              ₹{(districtData.omExpenditure * 0.15).toFixed(1)}Cr collected
             </p>
           </CardContent>
         </Card>
@@ -272,7 +272,7 @@ export function DistrictDashboard({ district }: DistrictDashboardProps) {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="month" />
                   <YAxis />
-                  <Tooltip formatter={(value) => [`₹${(Number(value) / 1000000).toFixed(1)}M`, "Expenditure"]} />
+                  <Tooltip formatter={(value) => [`₹${Number(value)}Cr`, "Expenditure"]} />
                   <Bar dataKey="expenditure" fill="#3b82f6" name="Monthly Expenditure" />
                 </BarChart>
               </ResponsiveContainer>
