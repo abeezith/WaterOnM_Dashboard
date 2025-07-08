@@ -94,6 +94,13 @@ const monthlyData = [
 export function DistrictDashboard({ district }: DistrictDashboardProps) {
   const districtData = getDistrictData(district)
 
+  const britishColors = {
+    blue: "#00247d",
+    red: "#cf142b",
+    green: "#008000",
+    yellow: "#ffb833",
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -103,107 +110,119 @@ export function DistrictDashboard({ district }: DistrictDashboardProps) {
             Water supply O&M performance across {districtData.blocks} blocks and {districtData.gps} gram panchayats
           </p>
         </div>
-        <Badge variant="outline" className="text-sm">
+        <Badge variant="outline" className="text-sm text-white bg-gray-500 border-none">
           Population: {(districtData.population / 1000000).toFixed(1)}M
         </Badge>
       </div>
 
       {/* Key Metrics */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
+        <Card className="bg-gradient-to-br from-gray-100 to-gray-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Tap Connections</CardTitle>
             <Droplets className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{districtData.tapConnections}%</div>
-            <Progress value={districtData.tapConnections} className="mt-2" />
+            <Progress value={districtData.tapConnections} className="mt-2" color={britishColors.blue} />
             <p className="text-xs text-muted-foreground mt-2">Target: 100% by 2024</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-gradient-to-br from-gray-100 to-gray-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Water Regularity</CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{districtData.waterRegularity}%</div>
-            <Progress value={districtData.waterRegularity} className="mt-2" />
+            <Progress value={districtData.waterRegularity} className="mt-2" color={britishColors.green} />
             <p className="text-xs text-muted-foreground mt-2">55 LPCD regular supply</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-gradient-to-br from-gray-100 to-gray-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Grievance Resolution</CardTitle>
             <CheckCircle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{districtData.grievanceResolution}%</div>
-            <Progress value={districtData.grievanceResolution} className="mt-2" />
+            <Progress value={districtData.grievanceResolution} className="mt-2" color={britishColors.yellow} />
             <p className="text-xs text-muted-foreground mt-2">Avg. 3.8 days resolution</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-gradient-to-br from-gray-100 to-gray-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">User Charge Collection</CardTitle>
             <IndianRupee className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{districtData.userChargeCollection}%</div>
-            <Progress value={districtData.userChargeCollection} className="mt-2" />
+            <Progress value={districtData.userChargeCollection} className="mt-2" color={britishColors.red} />
             <p className="text-xs text-muted-foreground mt-2">
               ₹{(districtData.omExpenditure * 0.15).toFixed(1)}Cr collected
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-gradient-to-br from-gray-100 to-gray-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Avg Turnaround Time</CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{districtData.avgTurnaround} days</div>
-            <Progress value={100 - (districtData.avgTurnaround / 10) * 100} className="mt-2" />
+            <Progress
+              value={100 - (districtData.avgTurnaround / 10) * 100}
+              className="mt-2"
+              color={britishColors.blue}
+            />
             <p className="text-xs text-muted-foreground mt-2">Target: ≤5 days</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-gradient-to-br from-gray-100 to-gray-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Water Interruptions</CardTitle>
             <AlertTriangle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{districtData.waterInterruptions}</div>
-            <Progress value={100 - (districtData.waterInterruptions / 100) * 100} className="mt-2" />
+            <Progress
+              value={100 - (districtData.waterInterruptions / 100) * 100}
+              className="mt-2"
+              color={britishColors.red}
+            />
             <p className="text-xs text-muted-foreground mt-2">Days interrupted annually</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-gradient-to-br from-gray-100 to-gray-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">15th FC Funds</CardTitle>
             <IndianRupee className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">₹{districtData.fcFunds}Cr</div>
-            <Progress value={68} className="mt-2" />
+            <Progress value={68} className="mt-2" color={britishColors.green} />
             <p className="text-xs text-muted-foreground mt-2">Mobilized for O&M</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-gradient-to-br from-gray-100 to-gray-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Resumption Time</CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{districtData.resumptionTime} days</div>
-            <Progress value={100 - (districtData.resumptionTime / 7) * 100} className="mt-2" />
+            <Progress
+              value={100 - (districtData.resumptionTime / 7) * 100}
+              className="mt-2"
+              color={britishColors.yellow}
+            />
             <p className="text-xs text-muted-foreground mt-2">Avg time to resume supply</p>
           </CardContent>
         </Card>
@@ -218,7 +237,7 @@ export function DistrictDashboard({ district }: DistrictDashboardProps) {
         </TabsList>
 
         <TabsContent value="blocks" className="space-y-4">
-          <Card>
+          <Card className="bg-gradient-to-br from-gray-100 to-gray-200">
             <CardHeader>
               <CardTitle>Block-wise Performance</CardTitle>
               <CardDescription>Performance metrics across all blocks in {district} district</CardDescription>
@@ -230,8 +249,8 @@ export function DistrictDashboard({ district }: DistrictDashboardProps) {
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
-                  <Bar dataKey="tapConnections" fill="#3b82f6" name="Tap Connections %" />
-                  <Bar dataKey="waterRegularity" fill="#22c55e" name="Water Regularity %" />
+                  <Bar dataKey="tapConnections" fill={britishColors.blue} name="Tap Connections %" />
+                  <Bar dataKey="waterRegularity" fill={britishColors.green} name="Water Regularity %" />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -240,7 +259,7 @@ export function DistrictDashboard({ district }: DistrictDashboardProps) {
 
         <TabsContent value="grievances" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2">
-            <Card>
+            <Card className="bg-gradient-to-br from-gray-100 to-gray-200">
               <CardHeader>
                 <CardTitle>Grievance Categories</CardTitle>
                 <CardDescription>Breakdown by complaint type</CardDescription>
@@ -269,7 +288,7 @@ export function DistrictDashboard({ district }: DistrictDashboardProps) {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-gradient-to-br from-gray-100 to-gray-200">
               <CardHeader>
                 <CardTitle>Monthly Interruptions</CardTitle>
                 <CardDescription>Water supply interruption trends</CardDescription>
@@ -281,8 +300,13 @@ export function DistrictDashboard({ district }: DistrictDashboardProps) {
                     <XAxis dataKey="month" />
                     <YAxis />
                     <Tooltip />
-                    <Line type="monotone" dataKey="interruptions" stroke="#ef4444" name="Interruptions" />
-                    <Line type="monotone" dataKey="resumptionDays" stroke="#f59e0b" name="Avg Resumption Days" />
+                    <Line type="monotone" dataKey="interruptions" stroke={britishColors.red} name="Interruptions" />
+                    <Line
+                      type="monotone"
+                      dataKey="resumptionDays"
+                      stroke={britishColors.yellow}
+                      name="Avg Resumption Days"
+                    />
                   </LineChart>
                 </ResponsiveContainer>
               </CardContent>
@@ -292,44 +316,44 @@ export function DistrictDashboard({ district }: DistrictDashboardProps) {
 
         <TabsContent value="maintenance" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-3">
-            <Card>
+            <Card className="bg-gradient-to-br from-gray-100 to-gray-200">
               <CardHeader>
                 <CardTitle>Preventive Maintenance</CardTitle>
                 <CardDescription>Scheduled maintenance compliance</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">78%</div>
-                <Progress value={78} className="mt-2" />
+                <Progress value={78} className="mt-2" color={britishColors.green} />
                 <p className="text-xs text-muted-foreground mt-2">Checklist compliance rate</p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-gradient-to-br from-gray-100 to-gray-200">
               <CardHeader>
                 <CardTitle>Tank Cleaning</CardTitle>
                 <CardDescription>Water storage tank maintenance</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">85%</div>
-                <Progress value={85} className="mt-2" />
+                <Progress value={85} className="mt-2" color={britishColors.blue} />
                 <p className="text-xs text-muted-foreground mt-2">Tanks cleaned on schedule</p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-gradient-to-br from-gray-100 to-gray-200">
               <CardHeader>
                 <CardTitle>Electricity Bills</CardTitle>
                 <CardDescription>Timely payment status</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">92%</div>
-                <Progress value={92} className="mt-2" />
+                <Progress value={92} className="mt-2" color={britishColors.yellow} />
                 <p className="text-xs text-muted-foreground mt-2">Bills paid on time</p>
               </CardContent>
             </Card>
           </div>
 
-          <Card>
+          <Card className="bg-gradient-to-br from-gray-100 to-gray-200">
             <CardHeader>
               <CardTitle>Monthly Maintenance Expenditure</CardTitle>
               <CardDescription>Repair and maintenance costs over time</CardDescription>
@@ -341,7 +365,7 @@ export function DistrictDashboard({ district }: DistrictDashboardProps) {
                   <XAxis dataKey="month" />
                   <YAxis />
                   <Tooltip formatter={(value) => [`₹${Number(value)}Cr`, "Expenditure"]} />
-                  <Bar dataKey="expenditure" fill="#3b82f6" name="Monthly Expenditure" />
+                  <Bar dataKey="expenditure" fill={britishColors.blue} name="Monthly Expenditure" />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -350,104 +374,104 @@ export function DistrictDashboard({ district }: DistrictDashboardProps) {
 
         <TabsContent value="community" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <Card>
+            <Card className="bg-gradient-to-br from-gray-100 to-gray-200">
               <CardHeader>
                 <CardTitle>VWSC Meetings</CardTitle>
                 <CardDescription>Village Water & Sanitation Committee</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{districtData.vwscMeetings}%</div>
-                <Progress value={districtData.vwscMeetings} className="mt-2" />
+                <Progress value={districtData.vwscMeetings} className="mt-2" color={britishColors.green} />
                 <p className="text-xs text-muted-foreground mt-2">Monthly meetings conducted</p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-gradient-to-br from-gray-100 to-gray-200">
               <CardHeader>
                 <CardTitle>FTK Testing</CardTitle>
                 <CardDescription>Field Test Kit with community</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{districtData.ftkTesting}%</div>
-                <Progress value={districtData.ftkTesting} className="mt-2" />
+                <Progress value={districtData.ftkTesting} className="mt-2" color={britishColors.red} />
                 <p className="text-xs text-muted-foreground mt-2">Community involvement</p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-gradient-to-br from-gray-100 to-gray-200">
               <CardHeader>
                 <CardTitle>Trained Personnel</CardTitle>
                 <CardDescription>Plumbers, mechanics, electricians</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{districtData.trainedPersonnel}%</div>
-                <Progress value={districtData.trainedPersonnel} className="mt-2" />
+                <Progress value={districtData.trainedPersonnel} className="mt-2" color={britishColors.yellow} />
                 <p className="text-xs text-muted-foreground mt-2">Available at GP level</p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-gradient-to-br from-gray-100 to-gray-200">
               <CardHeader>
                 <CardTitle>Electricity Payment</CardTitle>
                 <CardDescription>Timely bill payments</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{districtData.electricityPayment}%</div>
-                <Progress value={districtData.electricityPayment} className="mt-2" />
+                <Progress value={districtData.electricityPayment} className="mt-2" color={britishColors.blue} />
                 <p className="text-xs text-muted-foreground mt-2">Bills paid on time</p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-gradient-to-br from-gray-100 to-gray-200">
               <CardHeader>
                 <CardTitle>Tank Cleaning</CardTitle>
                 <CardDescription>Water storage maintenance</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{districtData.tankCleaning}%</div>
-                <Progress value={districtData.tankCleaning} className="mt-2" />
+                <Progress value={districtData.tankCleaning} className="mt-2" color={britishColors.green} />
                 <p className="text-xs text-muted-foreground mt-2">Regular cleaning schedule</p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-gradient-to-br from-gray-100 to-gray-200">
               <CardHeader>
                 <CardTitle>Preventive Maintenance</CardTitle>
                 <CardDescription>Checklist compliance</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{districtData.preventiveMaintenance}%</div>
-                <Progress value={districtData.preventiveMaintenance} className="mt-2" />
+                <Progress value={districtData.preventiveMaintenance} className="mt-2" color={britishColors.red} />
                 <p className="text-xs text-muted-foreground mt-2">Following checklist</p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-gradient-to-br from-gray-100 to-gray-200">
               <CardHeader>
                 <CardTitle>Log Book Updates</CardTitle>
                 <CardDescription>Record updation frequency</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{districtData.logbookUpdation}%</div>
-                <Progress value={districtData.logbookUpdation} className="mt-2" />
+                <Progress value={districtData.logbookUpdation} className="mt-2" color={britishColors.yellow} />
                 <p className="text-xs text-muted-foreground mt-2">Regular updates</p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-gradient-to-br from-gray-100 to-gray-200">
               <CardHeader>
                 <CardTitle>Record Maintenance</CardTitle>
                 <CardDescription>O&M records at GP/VWSC</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{districtData.recordMaintenance}%</div>
-                <Progress value={districtData.recordMaintenance} className="mt-2" />
+                <Progress value={districtData.recordMaintenance} className="mt-2" color={britishColors.blue} />
                 <p className="text-xs text-muted-foreground mt-2">Proper documentation</p>
               </CardContent>
             </Card>
           </div>
 
-          <Card>
+          <Card className="bg-gradient-to-br from-gray-100 to-gray-200">
             <CardHeader>
               <CardTitle>User Satisfaction Survey</CardTitle>
               <CardDescription>Feedback from water service users</CardDescription>
@@ -459,28 +483,28 @@ export function DistrictDashboard({ district }: DistrictDashboardProps) {
                     <span className="text-sm">Water Quality Satisfaction</span>
                     <span className="text-sm font-medium">78%</span>
                   </div>
-                  <Progress value={78} />
+                  <Progress value={78} color={britishColors.green} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Service Reliability</span>
                     <span className="text-sm font-medium">82%</span>
                   </div>
-                  <Progress value={82} />
+                  <Progress value={82} color={britishColors.red} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Grievance Handling</span>
                     <span className="text-sm font-medium">75%</span>
                   </div>
-                  <Progress value={75} />
+                  <Progress value={75} color={britishColors.yellow} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Overall Satisfaction</span>
                     <span className="text-sm font-medium">79%</span>
                   </div>
-                  <Progress value={79} />
+                  <Progress value={79} color={britishColors.blue} />
                 </div>
               </div>
             </CardContent>

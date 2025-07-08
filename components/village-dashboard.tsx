@@ -47,6 +47,10 @@ export function VillageDashboard({ district, block, village }: VillageDashboardP
   const totalConnections = householdData.reduce((sum, ward) => sum + ward.tapConnections, 0)
   const totalRegularSupply = householdData.reduce((sum, ward) => sum + ward.regularSupply, 0)
 
+  const cardGradient = "bg-gradient-to-br from-stone-50 to-zinc-100 dark:from-stone-800 dark:to-zinc-900"
+  const badgeOutline = "border-stone-400 text-stone-700 dark:border-stone-600 dark:text-stone-400"
+  const progressColour = "bg-stone-500 dark:bg-stone-400"
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -56,59 +60,59 @@ export function VillageDashboard({ district, block, village }: VillageDashboardP
             Detailed water supply O&M data for {village} village in {block} block, {district} district
           </p>
         </div>
-        <Badge variant="outline" className="text-sm">
+        <Badge variant="outline" className={`text-sm ${badgeOutline}`}>
           Population: 892
         </Badge>
       </div>
 
       {/* Key Metrics */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
+        <Card className={cardGradient}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Tap Connections</CardTitle>
             <Droplets className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{Math.round((totalConnections / totalHouseholds) * 100)}%</div>
-            <Progress value={(totalConnections / totalHouseholds) * 100} className="mt-2" />
+            <Progress value={(totalConnections / totalHouseholds) * 100} className={`mt-2 ${progressColour}`} />
             <p className="text-xs text-muted-foreground mt-2">
               {totalConnections} of {totalHouseholds} households
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className={cardGradient}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">55 LPCD Regular</CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{Math.round((totalRegularSupply / totalHouseholds) * 100)}%</div>
-            <Progress value={(totalRegularSupply / totalHouseholds) * 100} className="mt-2" />
+            <Progress value={(totalRegularSupply / totalHouseholds) * 100} className={`mt-2 ${progressColour}`} />
             <p className="text-xs text-muted-foreground mt-2">{totalRegularSupply} households receiving</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className={cardGradient}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Water Quality</CardTitle>
             <TestTube className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">80%</div>
-            <Progress value={80} className="mt-2" />
+            <Progress value={80} className={`mt-2 ${progressColour}`} />
             <p className="text-xs text-muted-foreground mt-2">4 of 5 tests passed</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className={cardGradient}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">User Charge Collection</CardTitle>
             <IndianRupee className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">86%</div>
-            <Progress value={86} className="mt-2" />
+            <Progress value={86} className={`mt-2 ${progressColour}`} />
             <p className="text-xs text-muted-foreground mt-2">₹1.24L collected this month</p>
           </CardContent>
         </Card>
@@ -123,7 +127,7 @@ export function VillageDashboard({ district, block, village }: VillageDashboardP
         </TabsList>
 
         <TabsContent value="household" className="space-y-4">
-          <Card>
+          <Card className={cardGradient}>
             <CardHeader>
               <CardTitle>Ward-wise Household Data</CardTitle>
               <CardDescription>Detailed breakdown of water supply coverage by ward</CardDescription>
@@ -165,7 +169,7 @@ export function VillageDashboard({ district, block, village }: VillageDashboardP
           </Card>
 
           <div className="grid gap-4 md:grid-cols-2">
-            <Card>
+            <Card className={cardGradient}>
               <CardHeader>
                 <CardTitle>Service Interruptions</CardTitle>
                 <CardDescription>Water supply interruption history</CardDescription>
@@ -176,7 +180,7 @@ export function VillageDashboard({ district, block, village }: VillageDashboardP
                     <span className="text-sm">Days Interrupted (This Month)</span>
                     <span className="text-sm font-medium">2 days</span>
                   </div>
-                  <Progress value={93} />
+                  <Progress value={93} className={progressColour} />
                   <p className="text-xs text-muted-foreground">93% uptime</p>
                 </div>
                 <div className="space-y-2">
@@ -184,13 +188,13 @@ export function VillageDashboard({ district, block, village }: VillageDashboardP
                     <span className="text-sm">Average Resumption Time</span>
                     <span className="text-sm font-medium">4.5 hours</span>
                   </div>
-                  <Progress value={75} />
+                  <Progress value={75} className={progressColour} />
                   <p className="text-xs text-muted-foreground">Target: 6 hours</p>
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className={cardGradient}>
               <CardHeader>
                 <CardTitle>Financial Summary</CardTitle>
                 <CardDescription>Revenue and expenditure overview</CardDescription>
@@ -201,14 +205,14 @@ export function VillageDashboard({ district, block, village }: VillageDashboardP
                     <span className="text-sm">Monthly Revenue</span>
                     <span className="text-sm font-medium">₹1.24L</span>
                   </div>
-                  <Progress value={86} />
+                  <Progress value={86} className={progressColour} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">O&M Expenditure</span>
                     <span className="text-sm font-medium">₹0.88L</span>
                   </div>
-                  <Progress value={70} />
+                  <Progress value={70} className={progressColour} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
@@ -222,7 +226,7 @@ export function VillageDashboard({ district, block, village }: VillageDashboardP
         </TabsContent>
 
         <TabsContent value="quality" className="space-y-4">
-          <Card>
+          <Card className={cardGradient}>
             <CardHeader>
               <CardTitle>Water Quality Test Results</CardTitle>
               <CardDescription>FTK (Field Test Kit) testing results with community involvement</CardDescription>
@@ -256,7 +260,7 @@ export function VillageDashboard({ district, block, village }: VillageDashboardP
           </Card>
 
           <div className="grid gap-4 md:grid-cols-2">
-            <Card>
+            <Card className={cardGradient}>
               <CardHeader>
                 <CardTitle>Quality Parameters</CardTitle>
                 <CardDescription>Current water quality status</CardDescription>
@@ -267,26 +271,26 @@ export function VillageDashboard({ district, block, village }: VillageDashboardP
                     <span className="text-sm">pH Level</span>
                     <span className="text-sm font-medium">7.0 (Normal)</span>
                   </div>
-                  <Progress value={85} />
+                  <Progress value={85} className={progressColour} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Turbidity</span>
                     <span className="text-sm font-medium">1.7 NTU (Good)</span>
                   </div>
-                  <Progress value={90} />
+                  <Progress value={90} className={progressColour} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Chlorine Residual</span>
                     <span className="text-sm font-medium">0.5 mg/L (Adequate)</span>
                   </div>
-                  <Progress value={75} />
+                  <Progress value={75} className={progressColour} />
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className={cardGradient}>
               <CardHeader>
                 <CardTitle>Community Testing</CardTitle>
                 <CardDescription>Community involvement in water quality monitoring</CardDescription>
@@ -297,21 +301,21 @@ export function VillageDashboard({ district, block, village }: VillageDashboardP
                     <span className="text-sm">FTK Tests by Community</span>
                     <span className="text-sm font-medium">12/15</span>
                   </div>
-                  <Progress value={80} />
+                  <Progress value={80} className={progressColour} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Trained Community Members</span>
                     <span className="text-sm font-medium">8</span>
                   </div>
-                  <Progress value={100} />
+                  <Progress value={100} className={progressColour} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Monthly Testing Frequency</span>
                     <span className="text-sm font-medium">Weekly</span>
                   </div>
-                  <Progress value={100} />
+                  <Progress value={100} className={progressColour} />
                 </div>
               </CardContent>
             </Card>
@@ -319,7 +323,7 @@ export function VillageDashboard({ district, block, village }: VillageDashboardP
         </TabsContent>
 
         <TabsContent value="maintenance" className="space-y-4">
-          <Card>
+          <Card className={cardGradient}>
             <CardHeader>
               <CardTitle>Recent Maintenance Activities</CardTitle>
               <CardDescription>Latest maintenance and repair activities</CardDescription>
@@ -361,7 +365,7 @@ export function VillageDashboard({ district, block, village }: VillageDashboardP
           </Card>
 
           <div className="grid gap-4 md:grid-cols-3">
-            <Card>
+            <Card className={cardGradient}>
               <CardHeader>
                 <CardTitle>Infrastructure Status</CardTitle>
                 <CardDescription>Overall system health</CardDescription>
@@ -372,26 +376,26 @@ export function VillageDashboard({ district, block, village }: VillageDashboardP
                     <span className="text-sm">Water Tank</span>
                     <span className="text-sm font-medium">Good</span>
                   </div>
-                  <Progress value={85} />
+                  <Progress value={85} className={progressColour} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Distribution Network</span>
                     <span className="text-sm font-medium">Excellent</span>
                   </div>
-                  <Progress value={92} />
+                  <Progress value={92} className={progressColour} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Pump System</span>
                     <span className="text-sm font-medium">Good</span>
                   </div>
-                  <Progress value={88} />
+                  <Progress value={88} className={progressColour} />
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className={cardGradient}>
               <CardHeader>
                 <CardTitle>Preventive Maintenance</CardTitle>
                 <CardDescription>Scheduled maintenance compliance</CardDescription>
@@ -402,26 +406,26 @@ export function VillageDashboard({ district, block, village }: VillageDashboardP
                     <span className="text-sm">Tank Cleaning</span>
                     <span className="text-sm font-medium">Monthly</span>
                   </div>
-                  <Progress value={100} />
+                  <Progress value={100} className={progressColour} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Pump Servicing</span>
                     <span className="text-sm font-medium">Quarterly</span>
                   </div>
-                  <Progress value={75} />
+                  <Progress value={75} className={progressColour} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Pipeline Inspection</span>
                     <span className="text-sm font-medium">Bi-annual</span>
                   </div>
-                  <Progress value={90} />
+                  <Progress value={90} className={progressColour} />
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className={cardGradient}>
               <CardHeader>
                 <CardTitle>Personnel Availability</CardTitle>
                 <CardDescription>Trained staff for maintenance</CardDescription>
@@ -432,21 +436,21 @@ export function VillageDashboard({ district, block, village }: VillageDashboardP
                     <span className="text-sm">Plumber</span>
                     <span className="text-sm font-medium">Available</span>
                   </div>
-                  <Progress value={100} />
+                  <Progress value={100} className={progressColour} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Electrician</span>
                     <span className="text-sm font-medium">Available</span>
                   </div>
-                  <Progress value={100} />
+                  <Progress value={100} className={progressColour} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Handpump Mechanic</span>
                     <span className="text-sm font-medium">Available</span>
                   </div>
-                  <Progress value={100} />
+                  <Progress value={100} className={progressColour} />
                 </div>
               </CardContent>
             </Card>
@@ -454,7 +458,7 @@ export function VillageDashboard({ district, block, village }: VillageDashboardP
         </TabsContent>
 
         <TabsContent value="vwsc" className="space-y-4">
-          <Card>
+          <Card className={cardGradient}>
             <CardHeader>
               <CardTitle>VWSC Committee Members</CardTitle>
               <CardDescription>Village Water & Sanitation Committee composition and contact details</CardDescription>
@@ -488,7 +492,7 @@ export function VillageDashboard({ district, block, village }: VillageDashboardP
           </Card>
 
           <div className="grid gap-4 md:grid-cols-2">
-            <Card>
+            <Card className={cardGradient}>
               <CardHeader>
                 <CardTitle>Meeting Records</CardTitle>
                 <CardDescription>VWSC meeting frequency and attendance</CardDescription>
@@ -499,26 +503,26 @@ export function VillageDashboard({ district, block, village }: VillageDashboardP
                     <span className="text-sm">Meetings This Year</span>
                     <span className="text-sm font-medium">10/12</span>
                   </div>
-                  <Progress value={83} />
+                  <Progress value={83} className={progressColour} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Average Attendance</span>
                     <span className="text-sm font-medium">4.2/5</span>
                   </div>
-                  <Progress value={84} />
+                  <Progress value={84} className={progressColour} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Action Items Completed</span>
                     <span className="text-sm font-medium">18/22</span>
                   </div>
-                  <Progress value={82} />
+                  <Progress value={82} className={progressColour} />
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className={cardGradient}>
               <CardHeader>
                 <CardTitle>Record Maintenance</CardTitle>
                 <CardDescription>Documentation and record keeping status</CardDescription>
@@ -529,27 +533,27 @@ export function VillageDashboard({ district, block, village }: VillageDashboardP
                     <span className="text-sm">Complaint Logbook</span>
                     <span className="text-sm font-medium">Up-to-date</span>
                   </div>
-                  <Progress value={95} />
+                  <Progress value={95} className={progressColour} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Financial Records</span>
                     <span className="text-sm font-medium">Current</span>
                   </div>
-                  <Progress value={90} />
+                  <Progress value={90} className={progressColour} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Maintenance Log</span>
                     <span className="text-sm font-medium">Updated</span>
                   </div>
-                  <Progress value={88} />
+                  <Progress value={88} className={progressColour} />
                 </div>
               </CardContent>
             </Card>
           </div>
 
-          <Card>
+          <Card className={cardGradient}>
             <CardHeader>
               <CardTitle>User Satisfaction Survey</CardTitle>
               <CardDescription>Recent feedback from water service users</CardDescription>
@@ -561,28 +565,28 @@ export function VillageDashboard({ district, block, village }: VillageDashboardP
                     <span className="text-sm">Water Quality</span>
                     <span className="text-sm font-medium">4.2/5</span>
                   </div>
-                  <Progress value={84} />
+                  <Progress value={84} className={progressColour} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Service Reliability</span>
                     <span className="text-sm font-medium">4.0/5</span>
                   </div>
-                  <Progress value={80} />
+                  <Progress value={80} className={progressColour} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Grievance Handling</span>
                     <span className="text-sm font-medium">3.8/5</span>
                   </div>
-                  <Progress value={76} />
+                  <Progress value={76} className={progressColour} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Overall Satisfaction</span>
                     <span className="text-sm font-medium">4.1/5</span>
                   </div>
-                  <Progress value={82} />
+                  <Progress value={82} className={progressColour} />
                 </div>
               </div>
             </CardContent>

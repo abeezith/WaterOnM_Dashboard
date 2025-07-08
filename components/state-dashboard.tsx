@@ -106,10 +106,10 @@ const monthlyTrends = [
 ]
 
 const serviceDistribution = [
-  { name: "Excellent (>90%)", value: 15, color: "#22c55e" },
-  { name: "Good (70-90%)", value: 45, color: "#3b82f6" },
-  { name: "Average (50-70%)", value: 30, color: "#f59e0b" },
-  { name: "Poor (<50%)", value: 10, color: "#ef4444" },
+  { name: "Excellent (>90%)", value: 15, color: "#059669" },
+  { name: "Good (70-90%)", value: 45, color: "#1e40af" },
+  { name: "Average (50-70%)", value: 30, color: "#dc2626" },
+  { name: "Poor (<50%)", value: 10, color: "#7c2d12" },
 ]
 
 export function StateDashboard() {
@@ -129,98 +129,104 @@ export function StateDashboard() {
 
       {/* Key Metrics */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
+        <Card className="bg-gradient-to-br from-red-50 to-red-100 border-red-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Tap Connections</CardTitle>
             <Droplets className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stateMetrics.tapConnections}%</div>
-            <Progress value={stateMetrics.tapConnections} className="mt-2" />
+            <Progress value={stateMetrics.tapConnections} className="mt-2 [&>div]:bg-blue-600" />
             <p className="text-xs text-muted-foreground mt-2">+2.3% from last month</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-gradient-to-br from-red-50 to-red-100 border-red-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Water Supply Regularity</CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stateMetrics.waterSupplyRegularity}%</div>
-            <Progress value={stateMetrics.waterSupplyRegularity} className="mt-2" />
+            <Progress value={stateMetrics.waterSupplyRegularity} className="mt-2 [&>div]:bg-blue-600" />
             <p className="text-xs text-muted-foreground mt-2">55 LPCD target achievement</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-gradient-to-br from-red-50 to-red-100 border-red-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Grievance Resolution</CardTitle>
             <CheckCircle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stateMetrics.grievanceResolution}%</div>
-            <Progress value={stateMetrics.grievanceResolution} className="mt-2" />
+            <Progress value={stateMetrics.grievanceResolution} className="mt-2 [&>div]:bg-blue-600" />
             <p className="text-xs text-muted-foreground mt-2">Avg. 4.2 days turnaround</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-gradient-to-br from-red-50 to-red-100 border-red-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">O&M Expenditure</CardTitle>
             <IndianRupee className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">₹{stateMetrics.omExpenditure}Cr</div>
-            <Progress value={75} className="mt-2" />
+            <Progress value={75} className="mt-2 [&>div]:bg-blue-600" />
             <p className="text-xs text-muted-foreground mt-2">75% of allocated budget utilized</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-gradient-to-br from-red-50 to-red-100 border-red-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Avg Grievance Turnaround</CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stateMetrics.avgGrievanceTurnaround} days</div>
-            <Progress value={100 - (stateMetrics.avgGrievanceTurnaround / 10) * 100} className="mt-2" />
+            <Progress
+              value={100 - (stateMetrics.avgGrievanceTurnaround / 10) * 100}
+              className="mt-2 [&>div]:bg-blue-600"
+            />
             <p className="text-xs text-muted-foreground mt-2">Target: ≤5 days</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-gradient-to-br from-red-50 to-red-100 border-red-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">15th FC Funds Mobilized</CardTitle>
             <IndianRupee className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">₹{stateMetrics.fcFundsMobilized}Cr</div>
-            <Progress value={68} className="mt-2" />
+            <Progress value={68} className="mt-2 [&>div]:bg-blue-600" />
             <p className="text-xs text-muted-foreground mt-2">68% of ₹272Cr allocated</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-gradient-to-br from-red-50 to-red-100 border-red-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Water Interruption Days</CardTitle>
             <AlertTriangle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stateMetrics.waterInterruptionDays}</div>
-            <Progress value={100 - (stateMetrics.waterInterruptionDays / 365) * 100} className="mt-2" />
+            <Progress
+              value={100 - (stateMetrics.waterInterruptionDays / 365) * 100}
+              className="mt-2 [&>div]:bg-blue-600"
+            />
             <p className="text-xs text-muted-foreground mt-2">Avg per year across state</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-gradient-to-br from-red-50 to-red-100 border-red-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">User Charge Collection</CardTitle>
             <IndianRupee className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stateMetrics.userChargeCollection}%</div>
-            <Progress value={stateMetrics.userChargeCollection} className="mt-2" />
+            <Progress value={stateMetrics.userChargeCollection} className="mt-2 [&>div]:bg-blue-600" />
             <p className="text-xs text-muted-foreground mt-2">
               ₹
               {(
@@ -254,9 +260,9 @@ export function StateDashboard() {
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
-                  <Bar dataKey="tapConnections" fill="#3b82f6" name="Tap Connections %" />
-                  <Bar dataKey="waterRegularity" fill="#22c55e" name="Water Regularity %" />
-                  <Bar dataKey="grievanceResolution" fill="#f59e0b" name="Grievance Resolution %" />
+                  <Bar dataKey="tapConnections" fill="#1e40af" name="Tap Connections %" />
+                  <Bar dataKey="waterRegularity" fill="#059669" name="Water Regularity %" />
+                  <Bar dataKey="grievanceResolution" fill="#dc2626" name="Grievance Resolution %" />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -277,8 +283,8 @@ export function StateDashboard() {
                     <XAxis dataKey="month" />
                     <YAxis />
                     <Tooltip />
-                    <Line type="monotone" dataKey="grievances" stroke="#ef4444" name="Registered" />
-                    <Line type="monotone" dataKey="resolved" stroke="#22c55e" name="Resolved" />
+                    <Line type="monotone" dataKey="grievances" stroke="#7c2d12" name="Registered" />
+                    <Line type="monotone" dataKey="resolved" stroke="#059669" name="Resolved" />
                   </LineChart>
                 </ResponsiveContainer>
               </CardContent>
@@ -296,7 +302,7 @@ export function StateDashboard() {
                     <XAxis dataKey="month" />
                     <YAxis />
                     <Tooltip />
-                    <Bar dataKey="waterInterruptions" fill="#f59e0b" name="Interruptions" />
+                    <Bar dataKey="waterInterruptions" fill="#dc2626" name="Interruptions" />
                   </BarChart>
                 </ResponsiveContainer>
               </CardContent>
@@ -345,63 +351,63 @@ export function StateDashboard() {
                     <span className="text-sm">VWSC Meetings Conducted</span>
                     <span className="text-sm font-medium">{stateMetrics.vwscMeetings}%</span>
                   </div>
-                  <Progress value={stateMetrics.vwscMeetings} />
+                  <Progress value={stateMetrics.vwscMeetings} className="[&>div]:bg-blue-600" />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">FTK Testing (Community Involvement)</span>
                     <span className="text-sm font-medium">{stateMetrics.ftkTesting}%</span>
                   </div>
-                  <Progress value={stateMetrics.ftkTesting} />
+                  <Progress value={stateMetrics.ftkTesting} className="[&>div]:bg-blue-600" />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Trained Personnel at GP Level</span>
                     <span className="text-sm font-medium">{stateMetrics.trainedPersonnel}%</span>
                   </div>
-                  <Progress value={stateMetrics.trainedPersonnel} />
+                  <Progress value={stateMetrics.trainedPersonnel} className="[&>div]:bg-blue-600" />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Timely Electricity Bill Payment</span>
                     <span className="text-sm font-medium">{stateMetrics.electricityBillPayment}%</span>
                   </div>
-                  <Progress value={stateMetrics.electricityBillPayment} />
+                  <Progress value={stateMetrics.electricityBillPayment} className="[&>div]:bg-blue-600" />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Tank Cleaning Compliance</span>
                     <span className="text-sm font-medium">{stateMetrics.tankCleaning}%</span>
                   </div>
-                  <Progress value={stateMetrics.tankCleaning} />
+                  <Progress value={stateMetrics.tankCleaning} className="[&>div]:bg-blue-600" />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Preventive Maintenance Checklist</span>
                     <span className="text-sm font-medium">{stateMetrics.preventiveMaintenance}%</span>
                   </div>
-                  <Progress value={stateMetrics.preventiveMaintenance} />
+                  <Progress value={stateMetrics.preventiveMaintenance} className="[&>div]:bg-blue-600" />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Log Book Updation Frequency</span>
                     <span className="text-sm font-medium">{stateMetrics.logbookUpdation}%</span>
                   </div>
-                  <Progress value={stateMetrics.logbookUpdation} />
+                  <Progress value={stateMetrics.logbookUpdation} className="[&>div]:bg-blue-600" />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">O&M Record Maintenance</span>
                     <span className="text-sm font-medium">{stateMetrics.recordMaintenance}%</span>
                   </div>
-                  <Progress value={stateMetrics.recordMaintenance} />
+                  <Progress value={stateMetrics.recordMaintenance} className="[&>div]:bg-blue-600" />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">User Satisfaction Score</span>
                     <span className="text-sm font-medium">{stateMetrics.userSatisfaction}/5</span>
                   </div>
-                  <Progress value={(stateMetrics.userSatisfaction / 5) * 100} />
+                  <Progress value={(stateMetrics.userSatisfaction / 5) * 100} className="[&>div]:bg-blue-600" />
                 </div>
               </CardContent>
             </Card>
@@ -417,7 +423,7 @@ export function StateDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">₹185Cr</div>
-                <Progress value={68} className="mt-2" />
+                <Progress value={68} className="mt-2 [&>div]:bg-blue-600" />
                 <p className="text-xs text-muted-foreground mt-2">68% utilized of ₹272Cr allocated</p>
               </CardContent>
             </Card>
@@ -429,7 +435,7 @@ export function StateDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{stateMetrics.userChargeCollection}%</div>
-                <Progress value={stateMetrics.userChargeCollection} className="mt-2" />
+                <Progress value={stateMetrics.userChargeCollection} className="mt-2 [&>div]:bg-blue-600" />
                 <p className="text-xs text-muted-foreground mt-2">₹48.5Cr collected this year</p>
               </CardContent>
             </Card>
@@ -441,7 +447,7 @@ export function StateDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">₹{stateMetrics.omExpenditure}Cr</div>
-                <Progress value={75} className="mt-2" />
+                <Progress value={75} className="mt-2 [&>div]:bg-blue-600" />
                 <p className="text-xs text-muted-foreground mt-2">75% of annual budget spent</p>
               </CardContent>
             </Card>
@@ -459,7 +465,7 @@ export function StateDashboard() {
                   <XAxis dataKey="month" />
                   <YAxis />
                   <Tooltip formatter={(value) => [`₹${Number(value)}Cr`, "Expenditure"]} />
-                  <Line type="monotone" dataKey="expenditure" stroke="#3b82f6" name="Monthly Expenditure" />
+                  <Line type="monotone" dataKey="expenditure" stroke="#1e40af" name="Monthly Expenditure" />
                 </LineChart>
               </ResponsiveContainer>
             </CardContent>

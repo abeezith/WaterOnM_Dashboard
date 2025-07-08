@@ -60,6 +60,10 @@ const monthlyData = [
 ]
 
 export function BlockDashboard({ district, block }: BlockDashboardProps) {
+  const britishBlue = "#00247d"
+  const britishRed = "#cf142b"
+  const britishGold = "#baa635"
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -69,57 +73,57 @@ export function BlockDashboard({ district, block }: BlockDashboardProps) {
             Water supply O&M performance across 6 gram panchayats in {district} district
           </p>
         </div>
-        <Badge variant="outline" className="text-sm">
+        <Badge variant="outline" className="text-sm" style={{ backgroundColor: britishBlue, color: "white" }}>
           Total HH: 2,441
         </Badge>
       </div>
 
       {/* Key Metrics */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
+        <Card style={{ background: `linear-gradient(to right, ${britishBlue}, #ADD8E6)` }}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Tap Connections</CardTitle>
             <Droplets className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">90%</div>
-            <Progress value={90} className="mt-2" />
+            <Progress value={90} className="mt-2" style={{ backgroundColor: britishRed, color: "white" }} />
             <p className="text-xs text-muted-foreground mt-2">2,197 of 2,441 households</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card style={{ background: `linear-gradient(to right, ${britishRed}, #FFB6C1)` }}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">55 LPCD Regular Supply</CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">86%</div>
-            <Progress value={86} className="mt-2" />
+            <Progress value={86} className="mt-2" style={{ backgroundColor: britishBlue, color: "white" }} />
             <p className="text-xs text-muted-foreground mt-2">1,889 households receiving</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card style={{ background: `linear-gradient(to right, ${britishGold}, #FAFAD2)` }}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Active Grievances</CardTitle>
             <AlertTriangle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">2</div>
-            <Progress value={20} className="mt-2" />
+            <Progress value={20} className="mt-2" style={{ backgroundColor: britishRed, color: "white" }} />
             <p className="text-xs text-muted-foreground mt-2">33 resolved this month</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card style={{ background: `linear-gradient(to right, ${britishBlue}, #ADD8E6)` }}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Maintenance Score</CardTitle>
             <Wrench className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">85%</div>
-            <Progress value={85} className="mt-2" />
+            <Progress value={85} className="mt-2" style={{ backgroundColor: britishGold, color: "white" }} />
             <p className="text-xs text-muted-foreground mt-2">Preventive maintenance</p>
           </CardContent>
         </Card>
@@ -146,8 +150,8 @@ export function BlockDashboard({ district, block }: BlockDashboardProps) {
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
-                  <Bar dataKey="tapConnections" fill="#3b82f6" name="Tap Connections %" />
-                  <Bar dataKey="waterRegularity" fill="#22c55e" name="Water Regularity %" />
+                  <Bar dataKey="tapConnections" fill={britishBlue} name="Tap Connections %" />
+                  <Bar dataKey="waterRegularity" fill={britishRed} name="Water Regularity %" />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -179,7 +183,10 @@ export function BlockDashboard({ district, block }: BlockDashboardProps) {
                       <TableCell>{gp.waterRegularity}%</TableCell>
                       <TableCell>{gp.grievances}</TableCell>
                       <TableCell>
-                        <Badge variant={gp.tapConnections > 90 ? "default" : "secondary"}>
+                        <Badge
+                          variant={gp.tapConnections > 90 ? "default" : "secondary"}
+                          style={{ backgroundColor: gp.tapConnections > 90 ? britishBlue : britishRed, color: "white" }}
+                        >
                           {gp.tapConnections > 90 ? "Good" : "Needs Attention"}
                         </Badge>
                       </TableCell>
@@ -193,38 +200,38 @@ export function BlockDashboard({ district, block }: BlockDashboardProps) {
 
         <TabsContent value="grievances" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-3">
-            <Card>
+            <Card style={{ background: `linear-gradient(to right, ${britishRed}, #FFB6C1)` }}>
               <CardHeader>
                 <CardTitle>Turnaround Time</CardTitle>
                 <CardDescription>Average resolution time</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">2.8 days</div>
-                <Progress value={70} className="mt-2" />
+                <Progress value={70} className="mt-2" style={{ backgroundColor: britishBlue, color: "white" }} />
                 <p className="text-xs text-muted-foreground mt-2">Target: 3 days</p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card style={{ background: `linear-gradient(to right, ${britishBlue}, #ADD8E6)` }}>
               <CardHeader>
                 <CardTitle>Resolution Rate</CardTitle>
                 <CardDescription>Grievances resolved</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">94%</div>
-                <Progress value={94} className="mt-2" />
+                <Progress value={94} className="mt-2" style={{ backgroundColor: britishGold, color: "white" }} />
                 <p className="text-xs text-muted-foreground mt-2">31 of 33 resolved</p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card style={{ background: `linear-gradient(to right, ${britishGold}, #FAFAD2)` }}>
               <CardHeader>
                 <CardTitle>User Satisfaction</CardTitle>
                 <CardDescription>Feedback score</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">4.2/5</div>
-                <Progress value={84} className="mt-2" />
+                <Progress value={84} className="mt-2" style={{ backgroundColor: britishRed, color: "white" }} />
                 <p className="text-xs text-muted-foreground mt-2">Based on 156 responses</p>
               </CardContent>
             </Card>
@@ -262,6 +269,15 @@ export function BlockDashboard({ district, block }: BlockDashboardProps) {
                                 ? "secondary"
                                 : "destructive"
                           }
+                          style={{
+                            backgroundColor:
+                              grievance.status === "Resolved"
+                                ? britishBlue
+                                : grievance.status === "In Progress"
+                                  ? britishGold
+                                  : britishRed,
+                            color: "white",
+                          }}
                         >
                           {grievance.status}
                         </Badge>
@@ -301,7 +317,11 @@ export function BlockDashboard({ district, block }: BlockDashboardProps) {
                       <TableCell>{item.completed}</TableCell>
                       <TableCell>
                         <div className="flex items-center space-x-2">
-                          <Progress value={(item.completed / item.scheduled) * 100} className="w-16" />
+                          <Progress
+                            value={(item.completed / item.scheduled) * 100}
+                            className="w-16"
+                            style={{ backgroundColor: britishBlue, color: "white" }}
+                          />
                           <span className="text-sm">{Math.round((item.completed / item.scheduled) * 100)}%</span>
                         </div>
                       </TableCell>
@@ -314,7 +334,7 @@ export function BlockDashboard({ district, block }: BlockDashboardProps) {
           </Card>
 
           <div className="grid gap-4 md:grid-cols-2">
-            <Card>
+            <Card style={{ background: `linear-gradient(to right, ${britishBlue}, #ADD8E6)` }}>
               <CardHeader>
                 <CardTitle>Water Storage Tanks</CardTitle>
                 <CardDescription>Tank cleaning and maintenance status</CardDescription>
@@ -325,26 +345,26 @@ export function BlockDashboard({ district, block }: BlockDashboardProps) {
                     <span className="text-sm">Tanks Cleaned (Monthly)</span>
                     <span className="text-sm font-medium">10/12</span>
                   </div>
-                  <Progress value={83} />
+                  <Progress value={83} style={{ backgroundColor: britishRed, color: "white" }} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Water Quality Tests</span>
                     <span className="text-sm font-medium">18/20</span>
                   </div>
-                  <Progress value={90} />
+                  <Progress value={90} style={{ backgroundColor: britishGold, color: "white" }} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Structural Inspections</span>
                     <span className="text-sm font-medium">8/10</span>
                   </div>
-                  <Progress value={80} />
+                  <Progress value={80} style={{ backgroundColor: britishBlue, color: "white" }} />
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card style={{ background: `linear-gradient(to right, ${britishRed}, #FFB6C1)` }}>
               <CardHeader>
                 <CardTitle>Infrastructure Status</CardTitle>
                 <CardDescription>Overall infrastructure health</CardDescription>
@@ -355,21 +375,21 @@ export function BlockDashboard({ district, block }: BlockDashboardProps) {
                     <span className="text-sm">Pipeline Network</span>
                     <span className="text-sm font-medium">Good</span>
                   </div>
-                  <Progress value={85} />
+                  <Progress value={85} style={{ backgroundColor: britishGold, color: "white" }} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Pump Stations</span>
                     <span className="text-sm font-medium">Excellent</span>
                   </div>
-                  <Progress value={92} />
+                  <Progress value={92} style={{ backgroundColor: britishBlue, color: "white" }} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Distribution System</span>
                     <span className="text-sm font-medium">Good</span>
                   </div>
-                  <Progress value={88} />
+                  <Progress value={88} style={{ backgroundColor: britishRed, color: "white" }} />
                 </div>
               </CardContent>
             </Card>
@@ -387,7 +407,7 @@ export function BlockDashboard({ district, block }: BlockDashboardProps) {
                   <XAxis dataKey="month" />
                   <YAxis />
                   <Tooltip formatter={(value) => [`₹${Number(value)}L`, "Expenditure"]} />
-                  <Bar dataKey="expenditure" fill="#facc15" name="Expenditure (Lakhs)" />
+                  <Bar dataKey="expenditure" fill={britishGold} name="Expenditure (Lakhs)" />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -396,45 +416,45 @@ export function BlockDashboard({ district, block }: BlockDashboardProps) {
 
         <TabsContent value="personnel" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-3">
-            <Card>
+            <Card style={{ background: `linear-gradient(to right, ${britishGold}, #FAFAD2)` }}>
               <CardHeader>
                 <CardTitle>Trained Plumbers</CardTitle>
                 <CardDescription>Available at GP level</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">5/6</div>
-                <Progress value={83} className="mt-2" />
+                <Progress value={83} className="mt-2" style={{ backgroundColor: britishBlue, color: "white" }} />
                 <p className="text-xs text-muted-foreground mt-2">1 position vacant in Karra GP</p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card style={{ background: `linear-gradient(to right, ${britishBlue}, #ADD8E6)` }}>
               <CardHeader>
                 <CardTitle>Handpump Mechanics</CardTitle>
                 <CardDescription>Trained personnel available</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">6/6</div>
-                <Progress value={100} className="mt-2" />
+                <Progress value={100} className="mt-2" style={{ backgroundColor: britishRed, color: "white" }} />
                 <p className="text-xs text-muted-foreground mt-2">All positions filled</p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card style={{ background: `linear-gradient(to right, ${britishRed}, #FFB6C1)` }}>
               <CardHeader>
                 <CardTitle>Electricians</CardTitle>
                 <CardDescription>For pump and electrical work</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">4/6</div>
-                <Progress value={67} className="mt-2" />
+                <Progress value={67} className="mt-2" style={{ backgroundColor: britishGold, color: "white" }} />
                 <p className="text-xs text-muted-foreground mt-2">2 positions need filling</p>
               </CardContent>
             </Card>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
-            <Card>
+            <Card style={{ background: `linear-gradient(to right, ${britishBlue}, #ADD8E6)` }}>
               <CardHeader>
                 <CardTitle>VWSC Meeting Compliance</CardTitle>
                 <CardDescription>Village Water & Sanitation Committee meetings</CardDescription>
@@ -445,26 +465,26 @@ export function BlockDashboard({ district, block }: BlockDashboardProps) {
                     <span className="text-sm">Monthly Meetings Held</span>
                     <span className="text-sm font-medium">5/6</span>
                   </div>
-                  <Progress value={83} />
+                  <Progress value={83} style={{ backgroundColor: britishRed, color: "white" }} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Attendance Rate</span>
                     <span className="text-sm font-medium">78%</span>
                   </div>
-                  <Progress value={78} />
+                  <Progress value={78} style={{ backgroundColor: britishGold, color: "white" }} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Action Items Completed</span>
                     <span className="text-sm font-medium">85%</span>
                   </div>
-                  <Progress value={85} />
+                  <Progress value={85} style={{ backgroundColor: britishBlue, color: "white" }} />
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card style={{ background: `linear-gradient(to right, ${britishRed}, #FFB6C1)` }}>
               <CardHeader>
                 <CardTitle>Record Maintenance</CardTitle>
                 <CardDescription>O&M records at GP and VWSC level</CardDescription>
@@ -475,21 +495,21 @@ export function BlockDashboard({ district, block }: BlockDashboardProps) {
                     <span className="text-sm">Complaint Logbook</span>
                     <span className="text-sm font-medium">Updated</span>
                   </div>
-                  <Progress value={90} />
+                  <Progress value={90} style={{ backgroundColor: britishGold, color: "white" }} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Maintenance Schedule</span>
                     <span className="text-sm font-medium">Current</span>
                   </div>
-                  <Progress value={85} />
+                  <Progress value={85} style={{ backgroundColor: britishBlue, color: "white" }} />
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm">Financial Records</span>
                     <span className="text-sm font-medium">Up-to-date</span>
                   </div>
-                  <Progress value={88} />
+                  <Progress value={88} style={{ backgroundColor: britishRed, color: "white" }} />
                 </div>
               </CardContent>
             </Card>
